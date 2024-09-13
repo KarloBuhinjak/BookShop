@@ -8,12 +8,13 @@ const {
   updateBookStock,
   deleteBook,
 } = require("../controllers/bookController");
+const verifyAdmin = require("../middlewares/verifyAdmin");
 
-router.post("/", createBook);
+router.post("/", verifyAdmin, createBook);
 router.get("/", getAllBooks);
 router.get("/:id", getBookById);
-router.put("/:id", updateBook);
-router.patch("/:id/stock", updateBookStock);
-router.delete("/:id", deleteBook);
+router.put("/:id", verifyAdmin, updateBook);
+router.patch("/:id/stock", verifyAdmin, updateBookStock);
+router.delete("/:id", verifyAdmin, deleteBook);
 
 module.exports = router;

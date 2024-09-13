@@ -5,6 +5,7 @@ require("./config/mongoDB");
 const errorMiddleware = require("./api/middlewares/errorMiddleware");
 const bookRouter = require("./api/routes/bookRouter");
 const userRouter = require("./api/routes/userRouter");
+const orderRouter = require("./api/routes/orderRouter");
 const verifyToken = require("./api/middlewares/verifyToken");
 const verifyAdmin = require("./api/middlewares/verifyAdmin");
 
@@ -17,8 +18,9 @@ const loggingMiddleware = (req, res, next) => {
 
 app.use(loggingMiddleware);
 
-app.use("/api/v1/books", verifyToken, verifyAdmin, bookRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/books", verifyToken, bookRouter);
+app.use("/api/v1/orders", verifyToken, orderRouter);
 
 app.use(errorMiddleware);
 
